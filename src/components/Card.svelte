@@ -21,7 +21,7 @@
 
 </script>
 
-<div class="card-wrap">
+<div class="card-wrap" >
     <div class="card" on:click="{selectCard}">
         <div class="card-body">
             <div class="card-title">{title}</div>
@@ -36,7 +36,10 @@
         flex : 0 0 auto;
         margin: 0 1rem;
         cursor: pointer;
+        
     }
+
+    
 
 
     .card {
