@@ -105,5 +105,4 @@ dist
 .tern-port
 
 /node_modules/
-/public/build/
 
