@@ -4,6 +4,8 @@
 	import { fade, fly } from 'svelte/transition';
 	import { sojus } from './constants/soju'
 	import { beers, beer_amount } from './constants/beer'
+	import { kaoliangs } from './constants/kaoliang'
+	import { makgeollis } from './constants/makgeolli'
 	import Select from 'svelte-select';
 	
 	let show = false;
@@ -21,12 +23,30 @@
 	const BEER_CAN_LARGE = 4.5 * 500; 
 	const BEER_PET = 4.5 * 1600; 
 
+	$: console.log(alcohol_type)
+
 	function handleMessage(event) {
-		console.log(event.detail.title);
-		alcohol_type = event.detail.title;
-		show = true;
-		result = false;
-		bottle = null;
+
+		selected_capacity = null;
+		selected_degree = null; 		// 도수
+		result = null;
+		current_amount = null;
+		
+		if (alcohol_type == event.detail.title){
+			document.getElementsByClassName("selected")[0].classList.remove('selected')
+			alcohol_type = null;
+			selected_brand = null;
+			show = false;
+		}else{
+			selected_brand = null;
+			result = false;
+			bottle = null;
+			alcohol_type = event.detail.title;
+			show = true;
+			
+			
+		}
+		
 	}
 
 	function handleSubmit() {
@@ -63,13 +83,13 @@
 	<div class="row">
 		<Card on:message={handleMessage} title="소주" emoji="🍾"></Card>
 		<Card on:message={handleMessage} title="맥주" emoji= "🍺"></Card>
-		<Card on:message={handleMessage} title="세계맥주" emoji= "🍻"></Card>
+		<Card on:message={handleMessage} title="고량주" emoji= "🍶"></Card>
 		<Card on:message={handleMessage} title="막걸리" emoji= "🍚"></Card>
 		<Card on:message={handleMessage} title="직접입력" emoji= "🍷"></Card>
 	</div>
 	<Space h_value="4"></Space>
 	{#if show}
-		<div in:fly={{y: -100, duration: 1000}} out:fade={{duration : 1000}}>
+		<div in:fly={{y: -100, duration: 1000}} out:fade={{duration : 500}}>
 			<p class="message" on:click="{() => {show=false}}">어떤 술을 얼만큼 마셨나요?</p>
 			<form class="input-form" on:submit|preventDefault={handleSubmit}>
 				{#if alcohol_type === '소주'}
@@ -83,6 +103,14 @@
 					<div class="select-item">
 						<Select items={beer_amount} placeholder="용량 선택" on:select={handleBeerAmountSelect}></Select>
 						
+					</div>
+				{:else if alcohol_type === '고량주'}
+					<div class="select-item">
+						<Select items={kaoliangs} placeholder="고량주 이름 검색" on:select={handleSojuSelect}></Select>
+					</div>
+				{:else if alcohol_type === '막걸리'}
+					<div class="select-item">
+						<Select items={makgeollis} placeholder="막걸리 이름 검색" on:select={handleSojuSelect}></Select>
 					</div>
 				{:else if alcohol_type === "직접입력"}
 					<input class="bottle" type=number bind:value={selected_degree} min="0" placeholder="도수(%)">
