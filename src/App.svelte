@@ -78,7 +78,7 @@
 
 <main>
 	<h1>술 계산기</h1>
-	<p class="message" on:click="{() => {show=false}}">술 종류를 선택하세요.</p>
+	<p class="message">술 종류를 선택하세요.</p>
 	<Space h_value="1"></Space>
 	<div class="row">
 		<Card on:message={handleMessage} title="소주" emoji="🍾"></Card>
@@ -87,10 +87,10 @@
 		<Card on:message={handleMessage} title="막걸리" emoji= "🍚"></Card>
 		<Card on:message={handleMessage} title="직접입력" emoji= "🍷"></Card>
 	</div>
-	<Space h_value="4"></Space>
+	<Space h_value="3"></Space>
 	{#if show}
 		<div in:fly={{y: -100, duration: 1000}} out:fade={{duration : 500}}>
-			<p class="message" on:click="{() => {show=false}}">어떤 술을 얼만큼 마셨나요?</p>
+			<p class="message">어떤 술을 얼만큼 마셨나요?</p>
 			<form class="input-form" on:submit|preventDefault={handleSubmit}>
 				{#if alcohol_type === '소주'}
 					<div class="select-item">
@@ -122,7 +122,6 @@
 					<input class="bottle" type=number bind:value={selected_capacity} min="0" placeholder="용량(ml)">
 				{/if}
 				<input class="bottle" type=number step=0.1 bind:value={bottle} min="0" placeholder="몇 병/캔?">
-				<span class="measure">(병/캔)</span>
 			
 				<button class="calc_btn" disabled={!bottle} type=submit>계산하기</button>
 			</form>
@@ -138,7 +137,7 @@
 
 	{/if}
 
-	<Space h_value="4" />
+	<Space h_value="3" />
 
 	{#if result}
 	<div  in:fly={{y: -100, duration: 1000}} out:fly={{y: -100, duration : 500}}>
@@ -153,8 +152,15 @@
 		</div>
 
 		<p class="message">과 같습니다.</p>
+		<Space h_value="3"></Space>
+		<div class="bottom_info">지나친 음주는 흑역사를 제조합니다. 즐길 만큼만 마십시다!</div>
+		<Space h_value="1"></Space>
+		<div class="bottom_info">made by Erin</div>
+		<Space h_value="2"></Space>
 	</div>
 	{/if}
+
+	
 
 </main>
 
@@ -162,7 +168,6 @@
 	main {
 		text-align: center;
 		padding: 1em;
-		max-width: 240px;
 		margin: 0 auto;
 	}
 
@@ -197,10 +202,10 @@
 		justify-content: center;
 	}
 
-	.measure {
-		align-self: center;
-		font-size: 1.4rem;
-		margin: 0 1rem 0 0;
+	.bottom_info {
+		
+		width: 100%;
+
 		
 	}
 
@@ -220,6 +225,7 @@
 		border: 2px solid rgb(46 125 50);
 		border-radius: 0.4rem;
 		background-color: white;
+		margin-left: 1rem;
 	}
 
 	.calc_btn:hover {
@@ -232,10 +238,56 @@
 	}
 
 
-	@media (min-width: 640px) {
+	@media (max-width:768px) {
 		main {
-			max-width: none;
+			text-align: center;
+			padding: 1em;
+			margin: 0 auto;
 		}
+
+		h1 {
+			color: #2E9639;
+			text-transform: uppercase;
+			font-size: 3em;
+			font-weight: 100;
+			font-family: 'GowunBatang-Bold'
+		}
+
+		.message {
+			font-size: 1rem;
+			font-family: 'GowunBatang-Bold'
+		}
+		.input-form {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.select-item {
+			width: 15rem;
+			font-family: 'GowunBatang-Bold';
+			--height: 3rem;
+			text-align: left;
+			margin: 0.5rem 0rem
+		}
+
+		.bottle {
+			height: 3rem;
+			padding: 0 16px;
+			margin: 0.5rem 0rem;
+			width: 15rem;
+			font-size: 14px;
+			font-weight: bold;
+		}
+
+		.calc_btn {
+			width: 6rem;
+			font-size: 1rem;
+			height: 2.6rem;
+   			margin-top: 1rem;
+		}
+
 	}
 
 

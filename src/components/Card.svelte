@@ -40,8 +40,6 @@
     }
 
     
-
-
     .card {
         box-shadow: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);  
         height: 100%;
@@ -71,6 +69,35 @@
 
     .emoji {
         font-size: 3rem;
+    }
+
+    @media (max-width:768px) {
+        .card-wrap {
+            display: inline-block;
+            margin: 0.61rem;
+            cursor: pointer;
+            width: 25%;
+        }
+
+        .card {
+            height: 100%;
+            width: 100%;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            padding: 1rem 1rem
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-family: 'GowunBatang-Bold'
+        }
+
+        .emoji {
+            font-size: 2rem;
+        }
+
     }
 
 </style>
